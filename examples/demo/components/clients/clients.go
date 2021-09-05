@@ -94,9 +94,59 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 
 	var ticketId string
 	{
-		req := &pb.CreateTicketRequest{
-			Ticket: &pb.Ticket{},
+
+		ticket := &pb.Ticket{}
+
+		//隨機產生不同條件
+		//兩個地區
+		//兩種職業
+		//等級 0~30
+		switch time.Now().UnixNano() % 4 {
+		case 0:
+			ticket.SearchFields = &pb.SearchFields{
+				StringArgs: map[string]string{
+					"location": "Asia/Taiwan",
+					"role":     "knight",
+				},
+				DoubleArgs: map[string]float64{
+					"level": float64(rand.Int31n(30)),
+				},
+			}
+		case 1:
+			ticket.SearchFields = &pb.SearchFields{
+				StringArgs: map[string]string{
+					"location": "Asia/Taiwan",
+					"role":     "archer",
+				},
+				DoubleArgs: map[string]float64{
+					"level": float64(rand.Int31n(30)),
+				},
+			}
+		case 2:
+			ticket.SearchFields = &pb.SearchFields{
+				StringArgs: map[string]string{
+					"location": "Asia/Japan",
+					"role":     "knight",
+				},
+				DoubleArgs: map[string]float64{
+					"level": float64(rand.Int31n(30)),
+				},
+			}
+		case 3:
+			ticket.SearchFields = &pb.SearchFields{
+				StringArgs: map[string]string{
+					"location": "Asia/Japan",
+					"role":     "archer",
+				},
+				DoubleArgs: map[string]float64{
+					"level": float64(rand.Int31n(30)),
+				},
+			}
 		}
+
+		fmt.Println(ticket.SearchFields.StringArgs["role"])
+
+		req := &pb.CreateTicketRequest{Ticket: ticket}
 
 		resp, err := fe.CreateTicket(ctx, req)
 		if err != nil {

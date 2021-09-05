@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM open-match-base-build as builder
+FROM golang:1.14.8-alpine3.11 as builder
 
 WORKDIR /go/src/open-match.dev/open-match/examples/functions/golang/soloduel
+COPY . /go/src/open-match.dev/open-match/examples/functions/golang/soloduel
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o matchfunction .
 
 FROM gcr.io/distroless/static:nonroot
