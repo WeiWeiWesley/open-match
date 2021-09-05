@@ -22,8 +22,8 @@ import (
 
 	"google.golang.org/grpc"
 
-	"open-match.dev/open-match/examples/demo/components"
-	"open-match.dev/open-match/examples/demo/updater"
+	"github.com/WeiWeiWesley/open-match/examples/demo/components"
+	"github.com/WeiWeiWesley/open-match/examples/demo/updater"
 	"open-match.dev/open-match/pkg/pb"
 )
 
