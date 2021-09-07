@@ -1,4 +1,4 @@
-module github.com/WeiWeiWesley/open-match
+module open-match.dev/open-match
 
 // Copyright 2019 Google LLC
 //
@@ -24,6 +24,7 @@ require (
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.4
 	github.com/Bose/minisentinel v0.0.0-20200130220412-917c5a9223bb
 	github.com/TV4/logrus-stackdriver-formatter v0.1.0
+	github.com/WeiWeiWesley/open-match v0.4.1-0.20210907022422-9477aff400af
 	github.com/alicebob/miniredis/v2 v2.14.1
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/fsnotify/fsnotify v1.4.9
@@ -47,5 +48,4 @@ require (
 	k8s.io/api v0.0.0-20191004102349-159aefb8556b // kubernetes-1.14.10
 	k8s.io/apimachinery v0.0.0-20191004074956-c5d2f014d689 // kubernetes-1.14.10
 	k8s.io/client-go v11.0.1-0.20191029005444-8e4128053008+incompatible // kubernetes-1.14.10
-	open-match.dev/open-match v1.2.0
 )
