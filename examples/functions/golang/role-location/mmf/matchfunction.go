@@ -55,8 +55,13 @@ func makeMatches(poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 	thisMatch := make([]*pb.Ticket, 0, 2)
 	matchNum := 0
 
+	previousRole := ""
 	for _, ticket := range tickets {
-		thisMatch = append(thisMatch, ticket)
+
+		if previousRole != ticket.SearchFields.StringArgs["role"] {
+			thisMatch = append(thisMatch, ticket)
+			previousRole = ticket.SearchFields.StringArgs["role"]
+		}
 
 		if len(thisMatch) >= 2 {
 			matches = append(matches, &pb.Match{
@@ -66,6 +71,7 @@ func makeMatches(poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 				Tickets:       thisMatch,
 			})
 
+			previousRole = ""
 			thisMatch = make([]*pb.Ticket, 0, 2)
 			matchNum++
 		}

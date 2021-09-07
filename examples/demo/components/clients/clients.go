@@ -144,10 +144,9 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 			}
 		}
 
-		fmt.Println(ticket.SearchFields.StringArgs["role"], ticket.SearchFields.StringArgs["location"], ticket.SearchFields.DoubleArgs["level"])
+		fmt.Println("ticket:", ticket.SearchFields.StringArgs["role"], ticket.SearchFields.StringArgs["location"], ticket.SearchFields.DoubleArgs["level"])
 
 		req := &pb.CreateTicketRequest{Ticket: ticket}
-
 		resp, err := fe.CreateTicket(ctx, req)
 		if err != nil {
 			panic(err)
@@ -167,11 +166,16 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 
 		stream, err := fe.WatchAssignments(ctx, req)
 		for assignment.GetConnection() == "" {
+
+			fmt.Println("assignment.GetConnection")
+
 			resp, err := stream.Recv()
 			if err != nil {
 				// For now we don't expect to get EOF, so that's still an error worthy of panic.
 				panic(err)
 			}
+
+			fmt.Println("stream.Recv() done")
 
 			assignment = resp.Assignment
 		}

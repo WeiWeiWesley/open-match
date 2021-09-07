@@ -20,7 +20,7 @@
 package main
 
 import (
-	"github.com/WeiWeiWesley/open-match/examples/functions/golang/role-location/mmf"
+	"role-location/mmf"
 )
 
 const (
