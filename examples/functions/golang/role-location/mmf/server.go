@@ -38,6 +38,8 @@ func Start(queryServiceAddr string, serverPort int) {
 	}
 	defer conn.Close()
 
+	log.Println("MMF(role-location) Start")
+
 	mmfService := matchFunctionService{
 		queryServiceClient: pb.NewQueryServiceClient(conn),
 	}

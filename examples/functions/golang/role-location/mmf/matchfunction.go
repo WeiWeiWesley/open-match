@@ -57,7 +57,9 @@ func makeMatches(poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 
 	previousRole := ""
 	for _, ticket := range tickets {
+		log.Println("pairing:", ticket.Id, ticket.SearchFields.StringArgs["role"])
 
+		//若同職業則會跳過此次配對
 		if previousRole != ticket.SearchFields.StringArgs["role"] {
 			thisMatch = append(thisMatch, ticket)
 			previousRole = ticket.SearchFields.StringArgs["role"]
@@ -70,6 +72,8 @@ func makeMatches(poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 				MatchFunction: matchName,
 				Tickets:       thisMatch,
 			})
+
+			log.Println("pairing success", thisMatch[0].SearchFields.StringArgs["role"], thisMatch[1].SearchFields.StringArgs["role"])
 
 			previousRole = ""
 			thisMatch = make([]*pb.Ticket, 0, 2)

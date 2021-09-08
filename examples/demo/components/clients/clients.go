@@ -101,7 +101,7 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 		//兩個地區
 		//兩種職業
 		//等級 0~30
-		switch time.Now().UnixNano() % 4 {
+		switch time.Now().Unix() % 4 {
 		case 0:
 			ticket.SearchFields = &pb.SearchFields{
 				StringArgs: map[string]string{
@@ -144,9 +144,11 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 			}
 		}
 
-		fmt.Println("ticket", ticket.SearchFields.StringArgs["role"])
-
 		req := &pb.CreateTicketRequest{Ticket: ticket}
+
+		s.Status = fmt.Sprintf("Create ticket role: %s location: %s", ticket.SearchFields.StringArgs["role"], ticket.SearchFields.StringArgs["location"])
+		update(s)
+		time.Sleep(time.Second)
 
 		resp, err := fe.CreateTicket(ctx, req)
 		if err != nil {
