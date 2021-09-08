@@ -19,11 +19,11 @@ import (
 	"net"
 	"testing"
 
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/rpc"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/rpc"
 )
 
 // ServiceName is a constant used for all in memory tests.

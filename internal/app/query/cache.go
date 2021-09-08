@@ -21,12 +21,12 @@ import (
 
 	"go.opencensus.io/stats"
 
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/statestore"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/internal/statestore"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 // cache unifies concurrent requests into a single cache update, and

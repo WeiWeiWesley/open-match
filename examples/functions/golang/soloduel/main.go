@@ -20,7 +20,7 @@
 package main
 
 import (
-	"open-match.dev/open-match/examples/functions/golang/soloduel/mmf"
+	"github.com/WeiWeiWesley/open-match/examples/functions/golang/soloduel/mmf"
 )
 
 const (

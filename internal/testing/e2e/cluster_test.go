@@ -23,17 +23,17 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator"
+	"github.com/WeiWeiWesley/open-match/internal/appmain/apptest"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	mmfService "github.com/WeiWeiWesley/open-match/internal/testing/mmf"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"open-match.dev/open-match/internal/app/evaluator"
-	"open-match.dev/open-match/internal/appmain/apptest"
-	"open-match.dev/open-match/internal/config"
-	mmfService "open-match.dev/open-match/internal/testing/mmf"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 func TestServiceHealth(t *testing.T) {

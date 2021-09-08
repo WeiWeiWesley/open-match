@@ -22,10 +22,10 @@ import (
 	"testing"
 	"time"
 
-	"open-match.dev/open-match/internal/app/evaluator"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/statestore"
-	mmfService "open-match.dev/open-match/internal/testing/mmf"
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/statestore"
+	mmfService "github.com/WeiWeiWesley/open-match/internal/testing/mmf"
 )
 
 func start(t *testing.T, eval evaluator.Evaluator, mmf mmfService.MatchFunction) (config.View, func(time.Duration)) {

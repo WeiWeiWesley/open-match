@@ -22,14 +22,14 @@ import (
 	"sync"
 	"time"
 
+	"github.com/WeiWeiWesley/open-match/examples/scale/scenarios"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/rpc"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/sirupsen/logrus"
 	"go.opencensus.io/trace"
-	"open-match.dev/open-match/examples/scale/scenarios"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/rpc"
-	"open-match.dev/open-match/internal/telemetry"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

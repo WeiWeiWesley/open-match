@@ -19,13 +19,13 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/cenkalti/backoff"
 	"github.com/golang/protobuf/proto"
 	"github.com/gomodule/redigo/redis"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 const (

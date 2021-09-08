@@ -15,11 +15,11 @@
 package main
 
 import (
-	"open-match.dev/open-match/examples/demo"
-	"open-match.dev/open-match/examples/demo/components"
+	"github.com/WeiWeiWesley/open-match/examples/demo"
+	"github.com/WeiWeiWesley/open-match/examples/demo/components"
 	"github.com/WeiWeiWesley/open-match/examples/demo/components/clients"
-	"open-match.dev/open-match/examples/demo/components/director"
-	"open-match.dev/open-match/examples/demo/components/uptime"
+	"github.com/WeiWeiWesley/open-match/examples/demo/components/director"
+	"github.com/WeiWeiWesley/open-match/examples/demo/components/uptime"
 )
 
 func main() {

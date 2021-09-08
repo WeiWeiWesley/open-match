@@ -23,8 +23,8 @@ import (
 	"log"
 	"net"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 // Start creates and starts the Match Function server and also connects to Open

@@ -20,7 +20,7 @@ import (
 	// "sort"
 	// "time"
 
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 // Evaluate is where your custom evaluation logic lives.

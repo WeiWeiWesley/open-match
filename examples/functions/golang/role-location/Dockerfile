@@ -14,12 +14,12 @@
 
 FROM golang:1.14.8-alpine3.11 as builder
 
-WORKDIR /go/src/open-match.dev/open-match/examples/functions/golang/role-location
-COPY . /go/src/open-match.dev/open-match/examples/functions/golang/role-location
+WORKDIR /go/src/github.com/WeiWeiWesley/open-match/examples/functions/golang/role-location
+COPY . /go/src/github.com/WeiWeiWesley/open-match/examples/functions/golang/role-location
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o matchfunction .
 
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /app/
-COPY --from=builder --chown=nonroot /go/src/open-match.dev/open-match/examples/functions/golang/role-location/matchfunction /app/
+COPY --from=builder --chown=nonroot /go/src/github.com/WeiWeiWesley/open-match/examples/functions/golang/role-location/matchfunction /app/
 
 ENTRYPOINT ["/app/matchfunction"]

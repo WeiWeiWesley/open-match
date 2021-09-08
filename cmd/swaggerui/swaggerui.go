@@ -16,7 +16,7 @@
 package main
 
 import (
-	"open-match.dev/open-match/internal/app/swaggerui"
+	"github.com/WeiWeiWesley/open-match/internal/app/swaggerui"
 )
 
 func main() {

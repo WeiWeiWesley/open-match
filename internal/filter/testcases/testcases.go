@@ -20,9 +20,9 @@ import (
 	"math"
 	"time"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	tspb "github.com/golang/protobuf/ptypes/timestamp"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 // TestCase defines a single filtering test case to run.

@@ -19,8 +19,8 @@ import (
 	"strings"
 
 	stackdriver "github.com/TV4/logrus-stackdriver-formatter"
+	"github.com/WeiWeiWesley/open-match/internal/config"
 	"github.com/sirupsen/logrus"
-	"open-match.dev/open-match/internal/config"
 )
 
 // ConfigureLogging sets up open match logrus instance using the logging section of the matchmaker_config.json

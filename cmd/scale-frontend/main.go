@@ -15,8 +15,8 @@
 package main
 
 import (
-	"open-match.dev/open-match/examples/scale/frontend"
-	"open-match.dev/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/examples/scale/frontend"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
 )
 
 func main() {

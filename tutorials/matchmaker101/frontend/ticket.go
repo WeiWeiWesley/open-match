@@ -18,7 +18,7 @@ import (
 	// Uncomment if following the tutorial
 	// "math/rand"
 
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 // Ticket generates a Ticket with data using the package configuration.

@@ -3,9 +3,9 @@ package backend
 import (
 	"context"
 
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/ipb"
-	"open-match.dev/open-match/internal/rpc"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/ipb"
+	"github.com/WeiWeiWesley/open-match/internal/rpc"
 )
 
 type synchronizerClient struct {

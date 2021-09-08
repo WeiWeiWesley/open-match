@@ -23,12 +23,12 @@ import (
 
 	"go.opencensus.io/stats"
 
+	"github.com/WeiWeiWesley/open-match/internal/appmain/contextcause"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/ipb"
+	"github.com/WeiWeiWesley/open-match/internal/statestore"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/sirupsen/logrus"
-	"open-match.dev/open-match/internal/appmain/contextcause"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/ipb"
-	"open-match.dev/open-match/internal/statestore"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

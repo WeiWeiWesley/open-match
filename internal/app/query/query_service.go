@@ -17,13 +17,13 @@ package query
 import (
 	"go.opencensus.io/stats"
 
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/filter"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/filter"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

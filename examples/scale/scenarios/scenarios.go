@@ -17,13 +17,13 @@ package scenarios
 import (
 	"sync"
 
+	"github.com/WeiWeiWesley/open-match/examples/scale/scenarios/backfill"
+	"github.com/WeiWeiWesley/open-match/examples/scale/scenarios/firstmatch"
+	"github.com/WeiWeiWesley/open-match/internal/util/testing"
+	"github.com/WeiWeiWesley/open-match/pkg/matchfunction"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/examples/scale/scenarios/backfill"
-	"open-match.dev/open-match/examples/scale/scenarios/firstmatch"
-	"open-match.dev/open-match/internal/util/testing"
-	"open-match.dev/open-match/pkg/matchfunction"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

@@ -20,7 +20,7 @@
 package main
 
 import (
-	"open-match.dev/open-match/examples/functions/golang/backfill/mmf"
+	"github.com/WeiWeiWesley/open-match/examples/functions/golang/backfill/mmf"
 )
 
 const (

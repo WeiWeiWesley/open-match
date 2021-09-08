@@ -23,8 +23,8 @@ import (
 	"log"
 	"net"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 func Start(queryServiceAddr string, serverPort int) {

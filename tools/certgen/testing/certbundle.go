@@ -18,7 +18,7 @@ package testing
 import (
 	"time"
 
-	certgenInternal "open-match.dev/open-match/tools/certgen/internal"
+	certgenInternal "github.com/WeiWeiWesley/open-match/tools/certgen/internal"
 )
 
 // CreateCertificateAndPrivateKeyForTesting is for generating test certificates in unit tests.

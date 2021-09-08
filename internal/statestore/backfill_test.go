@@ -29,9 +29,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/internal/config"
-	utilTesting "open-match.dev/open-match/internal/util/testing"
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	utilTesting "github.com/WeiWeiWesley/open-match/internal/util/testing"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 func TestCreateBackfillLastAckTime(t *testing.T) {

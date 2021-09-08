@@ -20,11 +20,11 @@ import (
 	"testing"
 	"time"
 
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
-	shellTesting "open-match.dev/open-match/internal/testing"
+	shellTesting "github.com/WeiWeiWesley/open-match/internal/testing"
 )
 
 func TestInsecureStartStop(t *testing.T) {

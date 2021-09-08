@@ -32,10 +32,10 @@ import (
 	"sort"
 	"time"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/golang/protobuf/ptypes/wrappers"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 const (

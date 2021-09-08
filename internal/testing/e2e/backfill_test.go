@@ -29,7 +29,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/anypb"
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 func TestCreateGetBackfill(t *testing.T) {

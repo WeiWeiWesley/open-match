@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 package openmatch;
-option go_package = "open-match.dev/open-match/pkg/pb";
+option go_package = "github.com/WeiWeiWesley/open-match/pkg/pb";
 option csharp_namespace = "OpenMatch";
 
 import "api/messages.proto";
@@ -92,7 +92,7 @@ message ReleaseAllTicketsRequest{}
 
 message ReleaseAllTicketsResponse {}
 
-// AssignmentGroup contains an Assignment and the Tickets to which it should be applied. 
+// AssignmentGroup contains an Assignment and the Tickets to which it should be applied.
 message AssignmentGroup {
   // TicketIds is a list of strings representing Open Match generated Ids which apply to an Assignment.
   repeated string ticket_ids = 1;
@@ -118,7 +118,7 @@ message AssignTicketsRequest {
 }
 
 message AssignTicketsResponse {
-  // Failures is a list of all the Tickets that failed assignment along with the cause of failure. 
+  // Failures is a list of all the Tickets that failed assignment along with the cause of failure.
   repeated AssignmentFailure failures = 1;
 }
 

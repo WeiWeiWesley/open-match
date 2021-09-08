@@ -16,11 +16,11 @@ package mmf
 import (
 	"testing"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"github.com/stretchr/testify/require"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 func TestHandleBackfills(t *testing.T) {

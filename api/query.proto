@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 package openmatch;
-option go_package = "open-match.dev/open-match/pkg/pb";
+option go_package = "github.com/WeiWeiWesley/open-match/pkg/pb";
 option csharp_namespace = "OpenMatch";
 
 import "api/messages.proto";
@@ -75,14 +75,14 @@ message QueryTicketIdsResponse {
   repeated string ids = 1;
 }
 
-// BETA FEATURE WARNING:  This Request messages are not finalized and 
+// BETA FEATURE WARNING:  This Request messages are not finalized and
 // still subject to possible change or removal.
 message QueryBackfillsRequest {
   // The Pool representing the set of Filters to be queried.
   Pool pool = 1;
 }
 
-// BETA FEATURE WARNING:  This Request messages are not finalized and 
+// BETA FEATURE WARNING:  This Request messages are not finalized and
 // still subject to possible change or removal.
 message QueryBackfillsResponse {
   // Backfills that meet all the filtering criteria requested by the pool.

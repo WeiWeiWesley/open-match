@@ -15,13 +15,13 @@
 package synchronizer
 
 import (
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/ipb"
+	"github.com/WeiWeiWesley/open-match/internal/statestore"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/internal/ipb"
-	"open-match.dev/open-match/internal/statestore"
-	"open-match.dev/open-match/internal/telemetry"
 )
 
 var (

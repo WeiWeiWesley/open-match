@@ -23,7 +23,7 @@ import (
 	"strings"
 	"time"
 
-	certgenInternal "open-match.dev/open-match/tools/certgen/internal"
+	certgenInternal "github.com/WeiWeiWesley/open-match/tools/certgen/internal"
 )
 
 var (

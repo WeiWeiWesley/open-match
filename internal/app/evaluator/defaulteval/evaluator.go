@@ -22,12 +22,12 @@ import (
 
 	"go.opencensus.io/stats"
 
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/sirupsen/logrus"
 	"go.opencensus.io/stats/view"
-	"open-match.dev/open-match/internal/app/evaluator"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

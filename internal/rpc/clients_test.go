@@ -28,12 +28,12 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/telemetry"
-	shellTesting "open-match.dev/open-match/internal/testing"
-	utilTesting "open-match.dev/open-match/internal/util/testing"
-	"open-match.dev/open-match/pkg/pb"
-	certgenTesting "open-match.dev/open-match/tools/certgen/testing"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
+	shellTesting "github.com/WeiWeiWesley/open-match/internal/testing"
+	utilTesting "github.com/WeiWeiWesley/open-match/internal/util/testing"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
+	certgenTesting "github.com/WeiWeiWesley/open-match/tools/certgen/testing"
 )
 
 func TestSecureGRPCFromConfig(t *testing.T) {

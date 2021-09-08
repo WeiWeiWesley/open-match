@@ -21,8 +21,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 const (

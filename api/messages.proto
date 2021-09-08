@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 package openmatch;
-option go_package = "open-match.dev/open-match/pkg/pb";
+option go_package = "github.com/WeiWeiWesley/open-match/pkg/pb";
 option csharp_namespace = "OpenMatch";
 
 import "google/rpc/status.proto";
@@ -226,7 +226,7 @@ message Match {
   // to possible change or removal.
   Backfill backfill = 8;
 
-  // AllocateGameServer signalise Director that Backfill is new and it should 
+  // AllocateGameServer signalise Director that Backfill is new and it should
   // allocate a GameServer, this Backfill would be assigned.
   // BETA FEATURE WARNING: This field is not finalized and still subject
   // to possible change or removal.
@@ -237,7 +237,7 @@ message Match {
 }
 
 // Represents a backfill entity which is used to fill partially full matches.
-// 
+//
 // BETA FEATURE WARNING:  This call and the associated Request and Response
 // messages are not finalized and still subject to possible change or removal.
 message Backfill {

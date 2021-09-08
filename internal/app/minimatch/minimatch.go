@@ -15,11 +15,11 @@
 package minimatch
 
 import (
-	"open-match.dev/open-match/internal/app/backend"
-	"open-match.dev/open-match/internal/app/frontend"
-	"open-match.dev/open-match/internal/app/query"
-	"open-match.dev/open-match/internal/app/synchronizer"
-	"open-match.dev/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/app/backend"
+	"github.com/WeiWeiWesley/open-match/internal/app/frontend"
+	"github.com/WeiWeiWesley/open-match/internal/app/query"
+	"github.com/WeiWeiWesley/open-match/internal/app/synchronizer"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
 )
 
 // BindService creates the minimatch service to the server Params.

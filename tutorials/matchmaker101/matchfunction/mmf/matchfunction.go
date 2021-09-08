@@ -21,8 +21,8 @@ import (
 	// "fmt"
 	// "time"
 
-	"open-match.dev/open-match/pkg/matchfunction"
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/matchfunction"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 const (

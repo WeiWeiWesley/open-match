@@ -19,7 +19,7 @@ import (
 	// "time"
 	// "math/rand"
 
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 // Ticket generates a Ticket with a mode search field that has one of the

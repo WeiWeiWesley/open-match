@@ -19,8 +19,8 @@ import (
 	"log"
 	"net"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 // matchFunctionService implements pb.MatchFunctionServer, the server generated

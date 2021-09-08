@@ -16,8 +16,8 @@
 package main
 
 import (
-	"open-match.dev/open-match/internal/app/query"
-	"open-match.dev/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/app/query"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
 )
 
 func main() {

@@ -21,9 +21,9 @@
 package ipb
 
 import (
+	pb "github.com/WeiWeiWesley/open-match/pkg/pb"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	pb "open-match.dev/open-match/pkg/pb"
 	reflect "reflect"
 	sync "sync"
 )

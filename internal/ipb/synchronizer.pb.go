@@ -22,12 +22,12 @@ package ipb
 
 import (
 	context "context"
+	pb "github.com/WeiWeiWesley/open-match/pkg/pb"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	pb "open-match.dev/open-match/pkg/pb"
 	reflect "reflect"
 	sync "sync"
 )

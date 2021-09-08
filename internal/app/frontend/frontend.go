@@ -15,13 +15,13 @@
 package frontend
 
 import (
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/statestore"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/internal/appmain"
-	"open-match.dev/open-match/internal/statestore"
-	"open-match.dev/open-match/internal/telemetry"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 var (

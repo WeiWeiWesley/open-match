@@ -24,7 +24,7 @@ import (
 	"strings"
 
 	"github.com/spf13/viper"
-	"open-match.dev/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/config"
 )
 
 const (

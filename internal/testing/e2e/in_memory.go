@@ -25,13 +25,13 @@ import (
 	"github.com/Bose/minisentinel"
 	miniredis "github.com/alicebob/miniredis/v2"
 	"github.com/spf13/viper"
-	"open-match.dev/open-match/internal/app/evaluator"
-	"open-match.dev/open-match/internal/app/minimatch"
-	"open-match.dev/open-match/internal/appmain/apptest"
-	"open-match.dev/open-match/internal/config"
-	"open-match.dev/open-match/internal/rpc"
-	"open-match.dev/open-match/internal/telemetry"
-	mmfService "open-match.dev/open-match/internal/testing/mmf"
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator"
+	"github.com/WeiWeiWesley/open-match/internal/app/minimatch"
+	"github.com/WeiWeiWesley/open-match/internal/appmain/apptest"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/rpc"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
+	mmfService "github.com/WeiWeiWesley/open-match/internal/testing/mmf"
 )
 
 func start(t *testing.T, eval evaluator.Evaluator, mmf mmfService.MatchFunction) (config.View, func(time.Duration)) {

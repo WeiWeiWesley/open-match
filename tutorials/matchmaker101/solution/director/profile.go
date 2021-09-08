@@ -15,7 +15,7 @@
 package main
 
 import (
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 // generateProfiles generates test profiles for the matchmaker101 tutorial.

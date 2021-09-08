@@ -17,13 +17,13 @@ package filter
 import (
 	"testing"
 
+	"github.com/WeiWeiWesley/open-match/internal/filter/testcases"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/internal/filter/testcases"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 func TestMeetsCriteria(t *testing.T) {

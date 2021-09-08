@@ -23,7 +23,7 @@ import (
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/encoding/protojson"
-	"open-match.dev/open-match/internal/telemetry"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
 )
 
 type insecureServer struct {

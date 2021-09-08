@@ -22,11 +22,11 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"open-match.dev/open-match/internal/app/evaluator"
-	"open-match.dev/open-match/internal/appmain/apptest"
-	"open-match.dev/open-match/internal/config"
-	mmfService "open-match.dev/open-match/internal/testing/mmf"
-	"open-match.dev/open-match/pkg/pb"
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator"
+	"github.com/WeiWeiWesley/open-match/internal/appmain/apptest"
+	"github.com/WeiWeiWesley/open-match/internal/config"
+	mmfService "github.com/WeiWeiWesley/open-match/internal/testing/mmf"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 )
 
 var (

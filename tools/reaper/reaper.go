@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"time"
 
-	reaperInternal "open-match.dev/open-match/tools/reaper/internal"
+	reaperInternal "github.com/WeiWeiWesley/open-match/tools/reaper/internal"
 )
 
 var (

@@ -15,8 +15,8 @@
 package main
 
 import (
-	"open-match.dev/open-match/internal/app/evaluator/defaulteval"
-	"open-match.dev/open-match/internal/appmain"
+	"github.com/WeiWeiWesley/open-match/internal/app/evaluator/defaulteval"
+	"github.com/WeiWeiWesley/open-match/internal/appmain"
 )
 
 func main() {

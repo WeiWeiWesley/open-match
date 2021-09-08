@@ -19,7 +19,7 @@ import (
 	"sync"
 
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/internal/config"
+	"github.com/WeiWeiWesley/open-match/internal/config"
 )
 
 // ClientCache holds GRPC and HTTP clients based on an address.

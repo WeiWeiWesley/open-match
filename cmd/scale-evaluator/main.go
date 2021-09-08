@@ -14,7 +14,7 @@
 package main
 
 import (
-	scaleEvaluator "open-match.dev/open-match/examples/scale/evaluator"
+	scaleEvaluator "github.com/WeiWeiWesley/open-match/examples/scale/evaluator"
 )
 
 func main() {

@@ -23,11 +23,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/WeiWeiWesley/open-match/examples/demo/bytesub"
+	"github.com/WeiWeiWesley/open-match/examples/demo/components"
+	"github.com/WeiWeiWesley/open-match/examples/demo/updater"
+	"github.com/WeiWeiWesley/open-match/internal/telemetry"
 	"golang.org/x/net/websocket"
-	"open-match.dev/open-match/examples/demo/bytesub"
-	"open-match.dev/open-match/examples/demo/components"
-	"open-match.dev/open-match/examples/demo/updater"
-	"open-match.dev/open-match/internal/telemetry"
 )
 
 // Run starts the provided components, and hosts a webserver for observing the

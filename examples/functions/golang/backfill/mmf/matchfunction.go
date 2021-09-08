@@ -24,12 +24,12 @@ import (
 
 	"log"
 
+	"github.com/WeiWeiWesley/open-match/pkg/matchfunction"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"google.golang.org/grpc"
-	"open-match.dev/open-match/pkg/matchfunction"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 const (

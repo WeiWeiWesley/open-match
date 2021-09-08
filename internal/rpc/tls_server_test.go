@@ -22,12 +22,12 @@ import (
 	"testing"
 	"time"
 
+	shellTesting "github.com/WeiWeiWesley/open-match/internal/testing"
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
+	certgenTesting "github.com/WeiWeiWesley/open-match/tools/certgen/testing"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-	shellTesting "open-match.dev/open-match/internal/testing"
-	"open-match.dev/open-match/pkg/pb"
-	certgenTesting "open-match.dev/open-match/tools/certgen/testing"
 )
 
 // TestStartStopTlsServerWithCARootedCertificate verifies that we can have a gRPC+TLS+HTTPS server/client work with a single self-signed certificate.

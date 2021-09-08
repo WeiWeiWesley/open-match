@@ -18,10 +18,10 @@ package testing
 import (
 	"context"
 
+	"github.com/WeiWeiWesley/open-match/pkg/pb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"open-match.dev/open-match/pkg/pb"
 )
 
 // FakeFrontend is an empty gRPC handler.

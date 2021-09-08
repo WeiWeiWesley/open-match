@@ -1,11 +1,11 @@
 # Copyright 2019 Google LLC
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
 
 FROM open-match-base-build as builder
 
-WORKDIR /go/src/open-match.dev/open-match
+WORKDIR /go/src/github.com/WeiWeiWesley/open-match
 
 ARG IMAGE_TITLE
 
@@ -24,7 +24,7 @@ FROM gcr.io/distroless/static:nonroot
 ARG IMAGE_TITLE
 WORKDIR /app/
 
-COPY --from=builder --chown=nonroot "/go/src/open-match.dev/open-match/build/cmd/${IMAGE_TITLE}/" "/app/"
+COPY --from=builder --chown=nonroot "/go/src/github.com/WeiWeiWesley/open-match/build/cmd/${IMAGE_TITLE}/" "/app/"
 
 ENTRYPOINT ["/app/run"]
 

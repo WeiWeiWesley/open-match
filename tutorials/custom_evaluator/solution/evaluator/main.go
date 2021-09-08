@@ -14,7 +14,7 @@
 package main
 
 import (
-	"open-match.dev/open-match/tutorials/matchmaker101/evaluator/evaluate"
+	"github.com/WeiWeiWesley/open-match/tutorials/matchmaker101/evaluator/evaluate"
 )
 
 const (
