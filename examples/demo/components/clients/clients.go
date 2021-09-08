@@ -144,7 +144,7 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 			}
 		}
 
-		fmt.Println(ticket.SearchFields.StringArgs["role"])
+		fmt.Println("ticket", ticket.SearchFields.StringArgs["role"])
 
 		req := &pb.CreateTicketRequest{Ticket: ticket}
 

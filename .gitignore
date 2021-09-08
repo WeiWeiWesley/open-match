@@ -122,6 +122,7 @@ examples/functions/golang/soloduel/soloduel
 test/evaluator/evaluator
 test/matchfunction/matchfunction
 tools/reaper/reaper
+cmd/demo-first-match/demo-first-match
 
 # Secrets Directories
 install/helm/open-match/secrets/
