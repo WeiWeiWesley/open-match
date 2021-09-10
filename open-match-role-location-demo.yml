@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: om-demo
-        image: "weiweiwesley/open-match:example-a.2"
+        image: "weiweiwesley/open-match:print_fetch_matches"
         imagePullPolicy: Always
         ports:
         - name: http

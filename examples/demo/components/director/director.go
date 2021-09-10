@@ -16,6 +16,7 @@ package director
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"math/rand"
@@ -110,6 +111,14 @@ func run(ds *components.DemoShared) {
 			if err != nil {
 				panic(err)
 			}
+
+			rr, err := json.Marshal(resp.GetMatch())
+			if err != nil {
+				panic(err)
+			}
+
+			fmt.Println("GetMatch:", string(rr))
+
 			matches = append(matches, resp.GetMatch())
 		}
 	}
@@ -147,6 +156,13 @@ func run(ds *components.DemoShared) {
 		}
 
 		_ = resp
+
+		rr, err := json.Marshal(resp)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("AssignTickets:", string(rr))
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
