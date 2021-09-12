@@ -124,6 +124,7 @@ test/matchfunction/matchfunction
 tools/reaper/reaper
 cmd/demo-first-match/demo-first-match
 examples/functions/golang/role-location/matchfunction
+examples/functions/golang/overlapping/matchfunction
 
 # Secrets Directories
 install/helm/open-match/secrets/

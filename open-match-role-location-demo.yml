@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: om-function
-        image: "weiweiwesley/mmf_role_location:diff_role.2"
+        image: "weiweiwesley/mmf:overlapping"
         ports:
         - name: grpc
           containerPort: 50502
@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: om-demo
-        image: "weiweiwesley/open-match:example-a.2"
+        image: "weiweiwesley/open-match:overlapping"
         imagePullPolicy: Always
         ports:
         - name: http

@@ -80,6 +80,8 @@ func run(ds *components.DemoShared) {
 	ds.Update(s)
 
 	var matches []*pb.Match
+
+	//MatchProfile1
 	{
 		req := &pb.FetchMatchesRequest{
 			Config: &pb.FunctionConfig{
@@ -88,10 +90,101 @@ func run(ds *components.DemoShared) {
 				Type: pb.FunctionConfig_GRPC,
 			},
 			Profile: &pb.MatchProfile{
-				Name: "1v1",
+				Name: "MatchProfile1",
 				Pools: []*pb.Pool{
 					{
-						Name: "Everyone",
+						Name: "low level",
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "level",
+								Max:       10,
+								Min:       0,
+							},
+						},
+					},
+				},
+			},
+		}
+
+		stream, err := be.FetchMatches(ds.Ctx, req)
+		if err != nil {
+			panic(err)
+		}
+
+		for {
+			resp, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				panic(err)
+			}
+			matches = append(matches, resp.GetMatch())
+		}
+	}
+
+	//MatchProfile2
+	{
+		req := &pb.FetchMatchesRequest{
+			Config: &pb.FunctionConfig{
+				Host: "om-function.open-match-demo.svc.cluster.local",
+				Port: 50502,
+				Type: pb.FunctionConfig_GRPC,
+			},
+			Profile: &pb.MatchProfile{
+				Name: "MatchProfile2",
+				Pools: []*pb.Pool{
+					{
+						Name: "mid level",
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "level",
+								Max:       28,
+								Min:       10,
+							},
+						},
+					},
+				},
+			},
+		}
+
+		stream, err := be.FetchMatches(ds.Ctx, req)
+		if err != nil {
+			panic(err)
+		}
+
+		for {
+			resp, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				panic(err)
+			}
+			matches = append(matches, resp.GetMatch())
+		}
+	}
+
+	//MatchProfile3
+	{
+		req := &pb.FetchMatchesRequest{
+			Config: &pb.FunctionConfig{
+				Host: "om-function.open-match-demo.svc.cluster.local",
+				Port: 50502,
+				Type: pb.FunctionConfig_GRPC,
+			},
+			Profile: &pb.MatchProfile{
+				Name: "MatchProfile3",
+				Pools: []*pb.Pool{
+					{
+						Name: "high level",
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "level",
+								Max:       30,
+								Min:       25,
+							},
+						},
 					},
 				},
 			},
