@@ -26,11 +26,45 @@ func TestMakeMatchesDeduplicate(t *testing.T) {
 	require := require.New(t)
 
 	poolNameToTickets := map[string][]*pb.Ticket{
-		"pool1": {{Id: "1"}},
-		"pool2": {{Id: "1"}},
+		"pool1": {
+			{
+				Id: "1",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 3,
+					},
+				},
+			},
+		},
+		"pool2": {
+			{
+				Id: "1",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 24,
+					},
+				},
+			},
+		},
 	}
 
-	matches, err := makeMatches(poolNameToTickets)
+	p := &pb.MatchProfile{
+		Name: "MatchProfile",
+		Pools: []*pb.Pool{
+			{
+				Name: "A pool",
+				DoubleRangeFilters: []*pb.DoubleRangeFilter{
+					{
+						DoubleArg: "level",
+						Max:       30,
+						Min:       25,
+					},
+				},
+			},
+		},
+	}
+
+	matches, err := makeMatches(p, poolNameToTickets)
 	require.Nil(err)
 	require.Equal(len(matches), 0)
 }
@@ -39,12 +73,79 @@ func TestMakeMatches(t *testing.T) {
 	require := require.New(t)
 
 	poolNameToTickets := map[string][]*pb.Ticket{
-		"pool1": {{Id: "1"}, {Id: "2"}, {Id: "3"}},
-		"pool2": {{Id: "4"}},
-		"pool3": {{Id: "5"}, {Id: "6"}, {Id: "7"}},
+		"pool1": {
+			{
+				Id: "1",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 23,
+					},
+				},
+			},
+			{
+				Id: "2",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 24,
+					},
+				},
+			},
+		},
+		"pool2": {
+			{
+				Id: "3",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 25,
+					},
+				},
+			},
+			{
+				Id: "4",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 26,
+					},
+				},
+			},
+		},
+		"pool3": {
+			{
+				Id: "5",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 30,
+					},
+				},
+			},
+			{
+				Id: "6",
+				SearchFields: &pb.SearchFields{
+					DoubleArgs: map[string]float64{
+						"level": 30,
+					},
+				},
+			},
+		},
 	}
 
-	matches, err := makeMatches(poolNameToTickets)
+	p := &pb.MatchProfile{
+		Name: "MatchProfile",
+		Pools: []*pb.Pool{
+			{
+				Name: "A pool",
+				DoubleRangeFilters: []*pb.DoubleRangeFilter{
+					{
+						DoubleArg: "level",
+						Max:       30,
+						Min:       25,
+					},
+				},
+			},
+		},
+	}
+
+	matches, err := makeMatches(p, poolNameToTickets)
 	require.Nil(err)
 	require.Equal(len(matches), 3)
 
