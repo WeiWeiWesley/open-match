@@ -223,6 +223,14 @@ func run(ds *components.DemoShared) {
 			ids = append(ids, t.Id)
 		}
 
+		q := pb.DefaultEvaluationCriteria{}
+
+		if err := match.Extensions["evaluation_input"].UnmarshalTo(&q); err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("match_id: %s, score: %f, tickets: %+v\n", match.MatchId, q.Score, ids)
+
 		req := &pb.AssignTicketsRequest{
 			Assignments: []*pb.AssignmentGroup{
 				{
