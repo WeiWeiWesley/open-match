@@ -73,7 +73,7 @@ metadata:
     component: matchfunction
     release: open-match-demo
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: open-match-customize

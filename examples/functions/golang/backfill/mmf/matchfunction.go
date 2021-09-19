@@ -95,15 +95,18 @@ func (s *matchFunctionService) Run(req *pb.RunRequest, stream pb.MatchFunction_R
 // if tickets left
 func makeMatches(profile *pb.MatchProfile, pool *pb.Pool, tickets []*pb.Ticket, backfills []*pb.Backfill) ([]*pb.Match, error) {
 	var matches []*pb.Match
+	//先將 backfills 裡面的空位填滿
 	newMatches, remainingTickets, err := handleBackfills(profile, tickets, backfills, len(matches))
 	if err != nil {
 		return nil, err
 	}
 
+	//持續依照遊戲上線湊滿房間 create normal match
 	matches = append(matches, newMatches...)
 	newMatches, remainingTickets = makeFullMatches(profile, remainingTickets, len(matches))
 	matches = append(matches, newMatches...)
 
+	//餘數沒滿的情況 create match with backfill
 	if len(remainingTickets) > 0 {
 		match, err := makeMatchWithBackfill(profile, pool, remainingTickets, len(matches))
 		if err != nil {
@@ -122,12 +125,14 @@ func handleBackfills(profile *pb.MatchProfile, tickets []*pb.Ticket, backfills [
 	matchId := lastMatchId
 	var matches []*pb.Match
 
+	//如果有已生成的 match 且有空缺（backfill）
 	for _, b := range backfills {
 		openSlots, err := getOpenSlots(b)
 		if err != nil {
 			return nil, tickets, err
 		}
 
+		//依據空缺填補
 		var matchTickets []*pb.Ticket
 		for openSlots > 0 && len(tickets) > 0 {
 			matchTickets = append(matchTickets, tickets[0])
@@ -135,6 +140,7 @@ func handleBackfills(profile *pb.MatchProfile, tickets []*pb.Ticket, backfills [
 			openSlots--
 		}
 
+		//產生 match
 		if len(matchTickets) > 0 {
 			err := setOpenSlots(b, openSlots)
 			if err != nil {
@@ -172,7 +178,7 @@ func makeMatchWithBackfill(profile *pb.MatchProfile, pool *pb.Pool, tickets []*p
 	// indicates that it is a new match and new game server should be allocated for it
 	match.AllocateGameserver = true
 
-	log.Printf("Create a backfill backfill_id: %s, match: %d\n", backfill.Id, matchId)
+	log.Printf("Create a match with %d backfill_id: %s\n", matchId, match.GetBackfill().GetId())
 
 	return &match, nil
 }
