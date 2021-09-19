@@ -66,6 +66,10 @@ func (s *matchFunctionService) Run(req *pb.RunRequest, stream pb.MatchFunction_R
 			return err
 		}
 
+		for i := range backfills {
+			log.Printf("QueryBackfillPool get backfill_id: %s\n", backfills[i].Id)
+		}
+
 		matches, err := makeMatches(profile, p, tickets, backfills)
 		if err != nil {
 			log.Printf("Failed to generate matches, got %s", err.Error())
@@ -167,6 +171,8 @@ func makeMatchWithBackfill(profile *pb.MatchProfile, pool *pb.Pool, tickets []*p
 	match := newMatch(matchId, profile.Name, tickets, backfill)
 	// indicates that it is a new match and new game server should be allocated for it
 	match.AllocateGameserver = true
+
+	log.Printf("Create a backfill backfill_id: %s, match: %d\n", backfill.Id, matchId)
 
 	return &match, nil
 }

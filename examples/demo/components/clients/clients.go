@@ -94,61 +94,9 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 
 	var ticketId string
 	{
-
-		ticket := &pb.Ticket{}
-
-		//隨機產生不同條件
-		//兩個地區
-		//兩種職業
-		//等級 0~30
-		switch time.Now().Unix() % 4 {
-		case 0:
-			ticket.SearchFields = &pb.SearchFields{
-				StringArgs: map[string]string{
-					"location": "Asia/Taiwan",
-					"role":     "knight",
-				},
-				DoubleArgs: map[string]float64{
-					"level": float64(rand.Int31n(30)),
-				},
-			}
-		case 1:
-			ticket.SearchFields = &pb.SearchFields{
-				StringArgs: map[string]string{
-					"location": "Asia/Taiwan",
-					"role":     "archer",
-				},
-				DoubleArgs: map[string]float64{
-					"level": float64(rand.Int31n(30)),
-				},
-			}
-		case 2:
-			ticket.SearchFields = &pb.SearchFields{
-				StringArgs: map[string]string{
-					"location": "Asia/Japan",
-					"role":     "knight",
-				},
-				DoubleArgs: map[string]float64{
-					"level": float64(rand.Int31n(30)),
-				},
-			}
-		case 3:
-			ticket.SearchFields = &pb.SearchFields{
-				StringArgs: map[string]string{
-					"location": "Asia/Japan",
-					"role":     "archer",
-				},
-				DoubleArgs: map[string]float64{
-					"level": float64(rand.Int31n(30)),
-				},
-			}
+		req := &pb.CreateTicketRequest{
+			Ticket: &pb.Ticket{},
 		}
-
-		req := &pb.CreateTicketRequest{Ticket: ticket}
-
-		s.Status = fmt.Sprintf("Create ticket role: %s location: %s", ticket.SearchFields.StringArgs["role"], ticket.SearchFields.StringArgs["location"])
-		update(s)
-		time.Sleep(time.Second)
 
 		resp, err := fe.CreateTicket(ctx, req)
 		if err != nil {
@@ -185,7 +133,7 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
-	s.Status = "Sleeping (pretend this is playing a match...)"
+	s.Status = fmt.Sprintf("Sleeping (pretend this %s is playing a match...)", ticketId)
 	s.Assignment = assignment
 	update(s)
 

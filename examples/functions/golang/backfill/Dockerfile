@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM open-match-base-build as builder
+FROM golang:1.14.8-alpine3.11 as builder
 
 WORKDIR /go/src/github.com/WeiWeiWesley/open-match/examples/functions/golang/backfill
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o matchfunction .
+COPY ./matchfunction /go/src/github.com/WeiWeiWesley/open-match/examples/functions/golang/backfill
+# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o matchfunction .
 
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /app/
