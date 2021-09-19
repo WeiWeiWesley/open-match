@@ -168,7 +168,11 @@ func makeMatchWithBackfill(profile *pb.MatchProfile, pool *pb.Pool, tickets []*p
 
 	matchId := lastMatchId
 	searchFields := newSearchFields(pool)
-	backfill, err := newBackfill(searchFields, playersPerMatch-len(tickets))
+
+	//空缺
+	slots := playersPerMatch-len(tickets)
+
+	backfill, err := newBackfill(searchFields, slots)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +182,7 @@ func makeMatchWithBackfill(profile *pb.MatchProfile, pool *pb.Pool, tickets []*p
 	// indicates that it is a new match and new game server should be allocated for it
 	match.AllocateGameserver = true
 
-	log.Printf("Create a match with %d backfill_id: %s\n", matchId, match.GetBackfill().GetId())
+	log.Printf("Create a match with %d backfill slots: %d\n", matchId, slots)
 
 	return &match, nil
 }
