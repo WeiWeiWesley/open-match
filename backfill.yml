@@ -125,7 +125,7 @@ spec:
     spec:
       containers:
       - name: om-demo
-        image: "weiweiwesley/open-match:backfill"
+        image: "gcr.io/open-match-public-images/openmatch-demo-first-match:1.2.0"
         imagePullPolicy: Always
         ports:
         - name: http
