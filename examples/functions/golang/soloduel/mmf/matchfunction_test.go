@@ -15,6 +15,8 @@
 package mmf
 
 import (
+	"fmt"
+	"math/rand"
 	"testing"
 
 	"github.com/WeiWeiWesley/open-match/pkg/pb"
@@ -52,4 +54,51 @@ func TestMakeMatches(t *testing.T) {
 		require.Equal(2, len(match.Tickets))
 		require.Equal(matchName, match.MatchFunction)
 	}
+}
+
+func BenchmarkMakeMatches(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+
+		poolNameToTickets, ticketsCount := requestCreator()
+		equal := int(ticketsCount / 2) //期望總組數
+
+		matches, err := makeMatches(poolNameToTickets)
+		if err != nil {
+			b.Error(err)
+		}
+
+		if len(matches) != equal {
+			b.Errorf("should create total num of %d matches but got %d", equal, len(matches))
+		}
+
+		for _, match := range matches {
+			if len(match.Tickets) != 2 {
+				b.Error("match.Tickets count err")
+			}
+
+			if match.MatchFunction != matchName {
+				b.Error("matchName err")
+			}
+		}
+	}
+}
+
+//隨機產生請求
+func requestCreator() (map[string][]*pb.Ticket, int) {
+	poolNum := rand.Intn(9) + 1 // random numbers of pools 1~10
+	poolNameToTickets := map[string][]*pb.Ticket{}
+
+	ticketCount := 1
+	for i := 0; i < poolNum; i++ {
+		aPoolTicketNum := rand.Intn(99) + 1 // random numbers of tickets 1~100
+		poolName := fmt.Sprintf("pool%d", i)
+
+		for j := 0; j < aPoolTicketNum; j++ {
+			poolNameToTickets[poolName] = append(poolNameToTickets[poolName], &pb.Ticket{
+				Id: fmt.Sprintf("%d", ticketCount),
+			})
+		}
+	}
+
+	return poolNameToTickets, ticketCount - 1
 }
