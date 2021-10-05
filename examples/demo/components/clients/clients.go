@@ -95,7 +95,28 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 	var ticketId string
 	{
 		req := &pb.CreateTicketRequest{
-			Ticket: &pb.Ticket{},
+			Ticket: &pb.Ticket{
+				SearchFields: &pb.SearchFields{
+					StringArgs: map[string]string{
+						"mode":        "3v3_normal_battle_royale",
+						"server":      "Taiwan_GCE2",
+						"role":        "Valk",
+						"user_name":   "wesley",
+						"user_id":     "123456789",
+						"team_member": `["23456789"]`,
+						"black_list":  `["11009837"]`,
+					},
+					DoubleArgs: map[string]float64{
+						"level":             154,
+						"rank":              3, // 0未分類 1銅 2銀 3金 4白金 5鑽石 6大師 7頂獵
+						"team_member_count": 2,
+						"score":             2880,
+						"avg_dmg":           312,
+						"win_streak":        1,
+						"avg_kd":            0.87,
+					},
+				},
+			},
 		}
 
 		resp, err := fe.CreateTicket(ctx, req)
