@@ -25,7 +25,16 @@ import (
 	"github.com/WeiWeiWesley/open-match/examples/demo/components"
 	"github.com/WeiWeiWesley/open-match/examples/demo/updater"
 	"github.com/WeiWeiWesley/open-match/pkg/pb"
+	"github.com/bwmarrin/snowflake"
 )
+
+var idCreator *snowflake.Node
+
+func init() {
+	if node, err := snowflake.NewNode(int64(rand.Intn(100))); err != nil {
+		idCreator = node
+	}
+}
 
 func Run(ds *components.DemoShared) {
 	u := updater.NewNested(ds.Ctx, ds.Update)
@@ -95,28 +104,7 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 	var ticketId string
 	{
 		req := &pb.CreateTicketRequest{
-			Ticket: &pb.Ticket{
-				SearchFields: &pb.SearchFields{
-					StringArgs: map[string]string{
-						"mode":        "3v3_normal_battle_royale",
-						"server":      "Taiwan_GCE2",
-						"role":        "Valk",
-						"user_name":   "wesley",
-						"user_id":     "123456789",
-						"team_member": `["23456789"]`,
-						"black_list":  `["11009837"]`,
-					},
-					DoubleArgs: map[string]float64{
-						"level":             154,
-						"rank":              3, // 0未分類 1銅 2銀 3金 4白金 5鑽石 6大師 7頂獵
-						"team_member_count": 2,
-						"score":             2880,
-						"avg_dmg":           312,
-						"win_streak":        1,
-						"avg_kd":            0.87,
-					},
-				},
-			},
+			Ticket: ticketCreator(),
 		}
 
 		resp, err := fe.CreateTicket(ctx, req)
@@ -159,4 +147,118 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 	update(s)
 
 	time.Sleep(time.Second * 10)
+}
+
+func ticketCreator() (ticket *pb.Ticket) {
+	rank := rand.Intn(6) // 0未分類 1銅 2銀 3金 4白金 5鑽石 6大師
+	score, avgDmg, avgKd, level := creatScoreByRank(rank)
+
+	switch time.Now().Unix() % 2 {
+	case 0:
+		/*
+			台服
+			一般場
+			無隊友
+			無連勝
+		*/
+		ticket = &pb.Ticket{
+			SearchFields: &pb.SearchFields{
+				StringArgs: map[string]string{
+					"mode":        "3v3_normal_battle_royale",
+					"server":      "Taiwan_GCE2",
+					"role":        roleCreator(),
+					"user_id":     idCreator.Generate().String(),
+					"team_member": `[]`,
+					"black_list":  `[]`,
+				},
+				DoubleArgs: map[string]float64{
+					"level":             level,
+					"rank":              float64(rank),
+					"team_member_count": 0,
+					"score":             score,
+					"avg_dmg":           avgDmg,
+					"avg_kd":            avgKd,
+					"win_streak":        0,
+				},
+			},
+		}
+	case 1:
+		/*
+			台服
+			排位場
+			無隊友
+			無連勝
+		*/
+		ticket = &pb.Ticket{
+			SearchFields: &pb.SearchFields{
+				StringArgs: map[string]string{
+					"mode":        "3v3_rank_battle_royale",
+					"server":      "Taiwan_GCE2",
+					"role":        roleCreator(),
+					"user_id":     idCreator.Generate().String(),
+					"team_member": `[]`,
+					"black_list":  `[]`,
+				},
+				DoubleArgs: map[string]float64{
+					"level":             level,
+					"rank":              float64(rank),
+					"team_member_count": 0,
+					"score":             score,
+					"avg_dmg":           avgDmg,
+					"avg_kd":            avgKd,
+					"win_streak":        0,
+				},
+			},
+		}
+	}
+
+	return
+}
+
+func roleCreator() (role string) {
+	switch rand.Intn(7) {
+	case 0:
+		role = "bang"
+	case 1:
+		role = "hound"
+	case 2:
+		role = "gibby"
+	case 3:
+		role = "valk"
+	case 4:
+		role = "crypto"
+	case 5:
+		role = "caustic"
+	case 6:
+		role = "horizon"
+	case 7:
+		role = "octane"
+	}
+
+	return
+}
+
+func creatScoreByRank(rank int) (score float64, avgDmg float64, avgKd float64, level float64) {
+	switch rank {
+	case 0, 1:
+		//Bronze
+		return float64(rand.Intn(1199)), float64(rand.Intn(180)), float64(rand.Intn(30)) / 100, float64(1 + rand.Intn(499))
+	case 2:
+		//Silver
+		return float64(1200 + rand.Intn(1599)), float64(rand.Intn(230)), float64(rand.Intn(50)) / 100, float64(11 + rand.Intn(489))
+	case 3:
+		//Gold
+		return float64(2800 + rand.Intn(1999)), float64(200 + rand.Intn(180)), 0.2 + float64(rand.Intn(50))/100, float64(50 + rand.Intn(449))
+	case 4:
+		//Platinum
+		return float64(4800 + rand.Intn(2399)), float64(280 + rand.Intn(200)), 0.5 + float64(rand.Intn(50))/100, float64(50 + rand.Intn(449))
+	case 5:
+		//Diamond
+		return float64(7200 + rand.Intn(2799)), float64(380 + rand.Intn(300)), 0.7 + float64(rand.Intn(30))/100, float64(50 + rand.Intn(449))
+	case 6:
+		//Master
+		return float64(10000 + rand.Intn(3500)), float64(480 + rand.Intn(500)), 1 + float64(rand.Intn(30))/100, float64(50 + rand.Intn(449))
+	}
+
+	return
 }

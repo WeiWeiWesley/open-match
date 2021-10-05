@@ -26,6 +26,7 @@ require (
 	github.com/TV4/logrus-stackdriver-formatter v0.1.0
 	github.com/alicebob/miniredis/v2 v2.14.1
 	github.com/aws/aws-sdk-go v1.35.26 // indirect
+	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/go-redsync/redsync/v4 v4.3.0
