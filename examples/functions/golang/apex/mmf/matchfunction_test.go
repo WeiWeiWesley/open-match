@@ -199,7 +199,7 @@ func TestMakeMatches(t *testing.T) {
 
 	for _, match := range matches {
 		require.Equal(3, len(match.Tickets))
-		require.Equal(matchName, match.MatchFunction)
+		require.Equal(normalMatchName, match.MatchFunction)
 	}
 }
 
@@ -270,6 +270,6 @@ func TestNoMatches(t *testing.T) {
 
 	for _, match := range matches {
 		require.Equal(3, len(match.Tickets))
-		require.Equal(matchName, match.MatchFunction)
+		require.Equal(normalMatchName, match.MatchFunction)
 	}
 }

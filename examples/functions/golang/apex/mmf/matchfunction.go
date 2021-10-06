@@ -33,9 +33,10 @@ import (
 )
 
 var (
-	matchName = "3v3_normal_battle_royale_matchfunction"
+	normalMatchName      = "3v3_normal_battle_royale_matchfunction"
+	rankMatchName        = "3v3_rank_battle_royale_matchfunction"
 	normalMatchIDCreator *snowflake.Node
-	rankMatchIDCreator *snowflake.Node
+	rankMatchIDCreator   *snowflake.Node
 )
 
 // matchFunctionService implements pb.MatchFunctionServer, the server generated
@@ -136,12 +137,8 @@ func normalMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb
 		return nil, nil
 	}
 
-	team := &pb.Match{
-		MatchId:       fmt.Sprintf("profile-%v-time-%v-%s", p.GetName(), time.Now().Format("2006-01-02T15:04:05.00"), normalMatchIDCreator.Generate().String()),
-		MatchFunction: matchName,
-		MatchProfile:  p.GetName(),
-	}
-
+	team := &pb.Match{}
+	count := 0
 	roleInTeam := []string{}
 
 	for i := range p.Pools {
@@ -167,7 +164,9 @@ func normalMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb
 						if err != nil {
 							return nil, err
 						}
-
+						team.MatchId = fmt.Sprintf("profile-%v-time-%v-%d", poolName, time.Now().Format("2006-01-02T15:04:05.00"), rankMatchIDCreator.Generate().Int64()+int64(count))
+						team.MatchFunction = normalMatchName
+						team.MatchProfile = poolName
 						team.Extensions = map[string]*any.Any{
 							"evaluation_input": evaluationInput,
 						}
@@ -177,6 +176,7 @@ func normalMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb
 						//reset
 						team = &pb.Match{}
 						roleInTeam = []string{}
+						count++
 					}
 				}
 			}
@@ -197,7 +197,7 @@ func rankMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.M
 	for i := range p.Pools {
 		poolName := p.Pools[i].Name
 
-		m, err := rankTeam(poolName, poolTickets)
+		m, err := rankTeam(p, poolName, poolTickets)
 		if err != nil {
 			return matches, err
 		}
@@ -209,14 +209,11 @@ func rankMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.M
 
 }
 
-func rankTeam(poolName string, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
+func rankTeam(p *pb.MatchProfile, poolName string, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 	matches := []*pb.Match{}
-	team := &pb.Match{
-		MatchId:       fmt.Sprintf("profile-%v-time-%v-%s", poolName, time.Now().Format("2006-01-02T15:04:05.00"), rankMatchIDCreator.Generate().String()),
-		MatchFunction: matchName,
-		MatchProfile:  poolName,
-	}
+	team := &pb.Match{}
 	roleInTeam := []string{}
+	count := 0
 
 	if tickets, ok := poolTickets[poolName]; ok {
 		for j := range tickets {
@@ -230,9 +227,26 @@ func rankTeam(poolName string, poolTickets map[string][]*pb.Ticket) ([]*pb.Match
 				roleInTeam = append(roleInTeam, tickets[j].SearchFields.StringArgs["role"])
 
 				if len(team.Tickets) == 3 {
+					// Compute the match quality/score
+					matchQuality := computeQuality(team.Tickets)
+					evaluationInput, err := ptypes.MarshalAny(&pb.DefaultEvaluationCriteria{
+						Score: matchQuality,
+					})
+					if err != nil {
+						return nil, err
+					}
+
+					team.MatchId = fmt.Sprintf("profile-%v-time-%v-%d", poolName, time.Now().Format("2006-01-02T15:04:05.00"), rankMatchIDCreator.Generate().Int64()+int64(count))
+					team.MatchFunction = rankMatchName
+					team.MatchProfile = p.GetName()
+					team.Extensions = map[string]*any.Any{
+						"evaluation_input": evaluationInput,
+					}
+
 					matches = append(matches, team)
 					team = &pb.Match{}
 					roleInTeam = []string{}
+					count++
 				}
 			}
 		}

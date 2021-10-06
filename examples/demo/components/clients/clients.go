@@ -44,7 +44,6 @@ func Run(ds *components.DemoShared) {
 
 	for i := 0; i < 10; i++ {
 		name := fmt.Sprintf("fakeplayer_%d", i)
-
 		go func() {
 			for !isContextDone(ds.Ctx) {
 				runScenario(ds.Ctx, name, u.ForField(name))
@@ -87,7 +86,7 @@ func runScenario(ctx context.Context, name string, update updater.SetFunc) {
 	s.Status = "Main Menu"
 	update(s)
 
-	time.Sleep(time.Duration(rand.Int63n(1200)) * time.Millisecond)
+	time.Sleep(time.Duration(1000 + rand.Int63n(500)) * time.Millisecond)
 
 	//////////////////////////////////////////////////////////////////////////////
 	s.Status = "Connecting to Open Match frontend"
