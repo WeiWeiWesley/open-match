@@ -88,10 +88,10 @@ func run(ds *components.DemoShared) {
 				Type: pb.FunctionConfig_GRPC,
 			},
 			Profile: &pb.MatchProfile{
-				Name: "1v1",
+				Name: "3v3_normal_battle_royale",
 				Pools: []*pb.Pool{
 					{
-						Name: "Everyone",
+						Name: "3v3_normal_battle_royale",
 					},
 				},
 			},
@@ -126,17 +126,23 @@ func run(ds *components.DemoShared) {
 	for _, match := range matches {
 		ids := []string{}
 
+		fmt.Println(">>>>>>>>> START")
 		for _, t := range match.Tickets {
+			fmt.Println(t.Id, t.SearchFields.StringArgs["role"], t.SearchFields.DoubleArgs["level"])
 			ids = append(ids, t.Id)
 		}
+		fmt.Println(">>>>>>>>> END")
 
 		q := pb.DefaultEvaluationCriteria{}
 
-		if err := match.Extensions["evaluation_input"].UnmarshalTo(&q); err != nil {
-			panic(err)
-		}
+		if evaluationInput, ok := match.Extensions["evaluation_input"]; ok {
+			if err := evaluationInput.UnmarshalTo(&q); err != nil {
+				fmt.Println(err)
+				continue
+			}
 
-		fmt.Printf("match_id: %s, score: %f, tickets: %+v\n", match.MatchId, q.Score, ids)
+			fmt.Printf("match_id: %s, score: %f, tickets: %+v\n", match.MatchId, q.Score, ids)
+		}
 
 		req := &pb.AssignTicketsRequest{
 			Assignments: []*pb.AssignmentGroup{

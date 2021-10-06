@@ -31,9 +31,12 @@ import (
 var idCreator *snowflake.Node
 
 func init() {
-	if node, err := snowflake.NewNode(int64(rand.Intn(100))); err != nil {
-		idCreator = node
+	node, err := snowflake.NewNode(int64(rand.Intn(100)))
+	if err != nil {
+		panic(err)
 	}
+
+	idCreator = node
 }
 
 func Run(ds *components.DemoShared) {

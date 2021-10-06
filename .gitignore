@@ -126,6 +126,7 @@ cmd/demo-first-match/demo-first-match
 examples/functions/golang/role-location/matchfunction
 examples/functions/golang/overlapping/matchfunction
 examples/functions/golang/backfill/matchfunction
+examples/functions/golang/apex/matchfunction
 
 # Secrets Directories
 install/helm/open-match/secrets/
