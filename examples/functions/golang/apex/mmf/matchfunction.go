@@ -19,15 +19,23 @@
 package mmf
 
 import (
+	"fmt"
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/WeiWeiWesley/open-match/pkg/matchfunction"
 	"github.com/WeiWeiWesley/open-match/pkg/pb"
+	"github.com/bwmarrin/snowflake"
+	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes/any"
 	"google.golang.org/grpc"
 )
 
 var (
 	matchName = "3v3_normal_battle_royale_matchfunction"
+	normalMatchIDCreator *snowflake.Node
+	rankMatchIDCreator *snowflake.Node
 )
 
 // matchFunctionService implements pb.MatchFunctionServer, the server generated
@@ -38,27 +46,38 @@ type matchFunctionService struct {
 	port               int
 }
 
+func init() {
+	node, err := snowflake.NewNode(rand.Int63n(50))
+	if err != nil {
+		panic(err)
+	}
+	normalMatchIDCreator = node
+
+	node2, err := snowflake.NewNode(51 + rand.Int63n(49))
+	if err != nil {
+		panic(err)
+	}
+	rankMatchIDCreator = node2
+}
+
 func makeMatches(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
 	var matches []*pb.Match
 
-	team := &pb.Match{
-		MatchFunction: matchName,
+	nm, err := normalMatch(p, poolTickets)
+	if err != nil {
+		log.Println(err)
+		return matches, err
 	}
-	for i := range p.Pools {
-		poolName := p.Pools[i].Name
 
-		if tickets, ok := poolTickets[poolName]; ok {
-			for j := range tickets {
-				if len(team.Tickets) < 3 {
-					team.Tickets = append(team.Tickets, tickets[j])
-					if len(team.Tickets) == 3 {
-						matches = append(matches, team)
-						team = &pb.Match{}
-					}
-				}
-			}
-		}
+	matches = append(matches, nm...)
+
+	rm, err := rankMatch(p, poolTickets)
+	if err != nil {
+		log.Println(err)
+		return matches, err
 	}
+
+	matches = append(matches, rm...)
 
 	return matches, nil
 }
@@ -97,16 +116,137 @@ func (s *matchFunctionService) Run(req *pb.RunRequest, stream pb.MatchFunction_R
 func computeQuality(tickets []*pb.Ticket) float64 {
 	quality := 0.0
 	high := 0.0
-	low := tickets[0].SearchFields.DoubleArgs["level"]
+	low := tickets[0].SearchFields.DoubleArgs["score"]
 	for _, ticket := range tickets {
-		if high < ticket.SearchFields.DoubleArgs["level"] {
-			high = ticket.SearchFields.DoubleArgs["level"]
+		if high < ticket.SearchFields.DoubleArgs["score"] {
+			high = ticket.SearchFields.DoubleArgs["score"]
 		}
-		if low > ticket.SearchFields.DoubleArgs["level"] {
-			low = ticket.SearchFields.DoubleArgs["level"]
+		if low > ticket.SearchFields.DoubleArgs["score"] {
+			low = ticket.SearchFields.DoubleArgs["score"]
 		}
 	}
 	quality = high - low
 
 	return quality
+}
+
+func normalMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
+	var matches []*pb.Match
+	if p.Name != "3v3_normal_battle_royale" {
+		return nil, nil
+	}
+
+	team := &pb.Match{
+		MatchId:       fmt.Sprintf("profile-%v-time-%v-%s", p.GetName(), time.Now().Format("2006-01-02T15:04:05.00"), normalMatchIDCreator.Generate().String()),
+		MatchFunction: matchName,
+		MatchProfile:  p.GetName(),
+	}
+
+	roleInTeam := []string{}
+
+	for i := range p.Pools {
+		poolName := p.Pools[i].Name
+
+		if tickets, ok := poolTickets[poolName]; ok {
+			for j := range tickets {
+				if len(team.Tickets) < 3 {
+					//check deduplicated role
+					if stringInArr(tickets[j].SearchFields.StringArgs["role"], roleInTeam) {
+						continue
+					}
+
+					team.Tickets = append(team.Tickets, tickets[j])
+					roleInTeam = append(roleInTeam, tickets[j].SearchFields.StringArgs["role"])
+
+					if len(team.Tickets) == 3 {
+						// Compute the match quality/score
+						matchQuality := computeQuality(team.Tickets)
+						evaluationInput, err := ptypes.MarshalAny(&pb.DefaultEvaluationCriteria{
+							Score: matchQuality,
+						})
+						if err != nil {
+							return nil, err
+						}
+
+						team.Extensions = map[string]*any.Any{
+							"evaluation_input": evaluationInput,
+						}
+
+						matches = append(matches, team)
+
+						//reset
+						team = &pb.Match{}
+						roleInTeam = []string{}
+					}
+				}
+			}
+		}
+	}
+
+	return matches, nil
+
+}
+
+func rankMatch(p *pb.MatchProfile, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
+	var matches []*pb.Match
+
+	if p.Name != "3v3_rank_battle_royale" {
+		return matches, nil
+	}
+
+	for i := range p.Pools {
+		poolName := p.Pools[i].Name
+
+		m, err := rankTeam(poolName, poolTickets)
+		if err != nil {
+			return matches, err
+		}
+		matches = append(matches, m...)
+
+	}
+
+	return matches, nil
+
+}
+
+func rankTeam(poolName string, poolTickets map[string][]*pb.Ticket) ([]*pb.Match, error) {
+	matches := []*pb.Match{}
+	team := &pb.Match{
+		MatchId:       fmt.Sprintf("profile-%v-time-%v-%s", poolName, time.Now().Format("2006-01-02T15:04:05.00"), rankMatchIDCreator.Generate().String()),
+		MatchFunction: matchName,
+		MatchProfile:  poolName,
+	}
+	roleInTeam := []string{}
+
+	if tickets, ok := poolTickets[poolName]; ok {
+		for j := range tickets {
+			if len(team.Tickets) < 3 {
+				//check deduplicated role
+				if stringInArr(tickets[j].SearchFields.StringArgs["role"], roleInTeam) {
+					continue
+				}
+
+				team.Tickets = append(team.Tickets, tickets[j])
+				roleInTeam = append(roleInTeam, tickets[j].SearchFields.StringArgs["role"])
+
+				if len(team.Tickets) == 3 {
+					matches = append(matches, team)
+					team = &pb.Match{}
+					roleInTeam = []string{}
+				}
+			}
+		}
+	}
+
+	return matches, nil
+}
+
+//StringInArr check if string in array
+func stringInArr(find string, array []string) (exists bool) {
+	for i := range array {
+		if find == array[i] {
+			return true
+		}
+	}
+	return
 }

@@ -80,6 +80,8 @@ func run(ds *components.DemoShared) {
 	ds.Update(s)
 
 	var matches []*pb.Match
+
+	//一般場
 	{
 		req := &pb.FetchMatchesRequest{
 			Config: &pb.FunctionConfig{
@@ -92,6 +94,92 @@ func run(ds *components.DemoShared) {
 				Pools: []*pb.Pool{
 					{
 						Name: "3v3_normal_battle_royale",
+						StringEqualsFilters: []*pb.StringEqualsFilter{
+							{
+								StringArg: "mode",
+								Value:     "3v3_normal_battle_royale",
+							},
+						},
+					},
+				},
+			},
+		}
+
+		stream, err := be.FetchMatches(ds.Ctx, req)
+		if err != nil {
+			panic(err)
+		}
+
+		for {
+			resp, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				panic(err)
+			}
+			matches = append(matches, resp.GetMatch())
+		}
+	}
+
+	//排位場
+	{
+		req := &pb.FetchMatchesRequest{
+			Config: &pb.FunctionConfig{
+				Host: "om-function.open-match-demo.svc.cluster.local",
+				Port: 50502,
+				Type: pb.FunctionConfig_GRPC,
+			},
+			Profile: &pb.MatchProfile{
+				Name: "3v3_rank_battle_royale",
+				Pools: []*pb.Pool{
+					{
+						Name: "3v3_rank_low",
+						StringEqualsFilters: []*pb.StringEqualsFilter{
+							{
+								StringArg: "mode",
+								Value:     "3v3_rank_battle_royale",
+							},
+						},
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "score",
+								Min:       0,
+								Max:       3500,
+							},
+						},
+					},
+					{
+						Name: "3v3_rank_mid",
+						StringEqualsFilters: []*pb.StringEqualsFilter{
+							{
+								StringArg: "mode",
+								Value:     "3v3_rank_battle_royale",
+							},
+						},
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "score",
+								Min:       3400,
+								Max:       7300,
+							},
+						},
+					},
+					{
+						Name: "3v3_rank_high",
+						StringEqualsFilters: []*pb.StringEqualsFilter{
+							{
+								StringArg: "mode",
+								Value:     "3v3_rank_battle_royale",
+							},
+						},
+						DoubleRangeFilters: []*pb.DoubleRangeFilter{
+							{
+								DoubleArg: "score",
+								Min:       7200,
+								Max:       15000,
+							},
+						},
 					},
 				},
 			},
